@@ -1,29 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F3F8FE"
     android:orientation="vertical"
     android:padding="16dp">
 
-    <TextView
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:text="CITAS"
-        android:textSize="50sp"
-        android:textStyle="bold" />
+        app:cardBackgroundColor="#E3F2FD"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="2dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="14dp"
+            android:text="CITAS"
+            android:textColor="#1E3A5F"
+            android:textSize="36sp"
+            android:textStyle="bold" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Acciones rápidas: Editar y Eliminar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnEditarCita"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_marginEnd="6dp"
+            android:layout_weight="1"
+            android:text="Editar"
+            android:textAllCaps="false"
+            android:textColor="#311B92"
+            android:textStyle="bold"
+            app:backgroundTint="#E1BEE7"
+            app:cornerRadius="12dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnEliminarCita"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_weight="1"
+            android:text="Eliminar"
+            android:textAllCaps="false"
+            android:textColor="#880E4F"
+            android:textStyle="bold"
+            app:backgroundTint="#F8BBD0"
+            app:cornerRadius="12dp" />
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvCitas"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:paddingBottom="8dp" />
 
-    <Button
+    <!-- Botón principal para Crear / Agendar -->
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnIrAgendarCita"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="Agendar" />
+        android:layout_height="52dp"
+        android:layout_marginTop="10dp"
+        android:text="Agendar"
+        android:textAllCaps="false"
+        android:textColor="#1E3A5F"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:backgroundTint="#BBDEFB"
+        app:cornerRadius="16dp"
+        app:rippleColor="#90CAF9" />
 
 </LinearLayout>

@@ -1,29 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F3FAF5"
     android:orientation="vertical"
     android:padding="16dp">
 
-    <TextView
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:text="Pedidos"
-        android:textSize="50sp"
-        android:textStyle="bold" />
+        app:cardBackgroundColor="#D8F3DC"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="2dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="14dp"
+            android:text="Pedidos"
+            android:textColor="#1B4332"
+            android:textSize="36sp"
+            android:textStyle="bold" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnEditarPedido"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_marginEnd="6dp"
+            android:layout_weight="1"
+            android:text="Editar"
+            android:textAllCaps="false"
+            android:textColor="#311B92"
+            android:textStyle="bold"
+            app:backgroundTint="#E1BEE7"
+            app:cornerRadius="12dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnEliminarPedido"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_weight="1"
+            android:text="Eliminar"
+            android:textAllCaps="false"
+            android:textColor="#880E4F"
+            android:textStyle="bold"
+            app:backgroundTint="#F8BBD0"
+            app:cornerRadius="12dp" />
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvPedidos"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:paddingBottom="8dp" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnIrPedir"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="52dp"
         android:layout_marginTop="10dp"
-        android:text="Pedir" />
+        android:text="Pedir"
+        android:textAllCaps="false"
+        android:textColor="#1B4332"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:backgroundTint="#B7E4C7"
+        app:cornerRadius="16dp"
+        app:rippleColor="#95D5B2" />
 
 </LinearLayout>

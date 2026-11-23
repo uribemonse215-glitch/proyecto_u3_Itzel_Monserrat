@@ -1,74 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F7F5FC"
     android:orientation="vertical"
     android:padding="16dp">
 
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="#FCE4EC"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="2dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/tvBienvenida"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:text='"EL WERO"'
+                android:textColor="#4A152C"
+                android:textSize="32sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCerrarSesion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Salir"
+                android:textAllCaps="false"
+                android:textColor="#4A152C"
+                android:textStyle="bold"
+                app:backgroundTint="#F8BBD0"
+                app:cornerRadius="14dp"
+                app:rippleColor="#F48FB1" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="14dp"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/tvBienvenida"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text='"EL WERO"'
-            android:textSize="50sp"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/btnCerrarSesion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Salir" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="12dp"
-        android:orientation="horizontal">
-
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnNavCitas"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="6dp"
             android:layout_weight="1"
-            android:text="Citas" />
+            android:text="Citas"
+            android:textAllCaps="false"
+            android:textColor="#1E3A5F"
+            android:textStyle="bold"
+            app:backgroundTint="#BBDEFB"
+            app:cornerRadius="14dp"
+            app:rippleColor="#90CAF9" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnNavPedidos"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="6dp"
             android:layout_weight="1"
-            android:text="Pedidos" />
+            android:text="Pedidos"
+            android:textAllCaps="false"
+            android:textColor="#1B4332"
+            android:textStyle="bold"
+            app:backgroundTint="#C8E6C9"
+            app:cornerRadius="14dp"
+            app:rippleColor="#A5D6A7" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnNavCuotas"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_weight="1"
-            android:text="Cuotas" />
+            android:text="Cuotas"
+            android:textAllCaps="false"
+            android:textColor="#311B92"
+            android:textStyle="bold"
+            app:backgroundTint="#E1BEE7"
+            app:cornerRadius="14dp"
+            app:rippleColor="#CE93D8" />
     </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="6dp"
+        android:layout_marginBottom="8dp"
         android:text="Pedidos"
+        android:textColor="#2E2A3B"
+        android:textSize="17sp"
         android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvPedidosPanel"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:paddingBottom="8dp" />
 
 </LinearLayout>

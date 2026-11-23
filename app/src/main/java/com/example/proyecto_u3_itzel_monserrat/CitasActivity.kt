@@ -16,6 +16,7 @@ class CitasActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCitasBinding
     private lateinit var citaAdapter: CitaAdapter
     private val db by lazy { FirebaseFirestore.getInstance() }
+    private var listaCitas: List<Cita> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,32 +25,8 @@ class CitasActivity : AppCompatActivity() {
 
         citaAdapter = CitaAdapter(
             citas = mutableListOf(),
-            onItemClick = { cita ->
-                val intent = Intent(this, FormCitaActivity::class.java).apply {
-                    putExtra("CITA_ID", cita.id)
-                    putExtra("CITA_CLIENTE", cita.cliente)
-                    putExtra("CITA_ANIMAL", cita.animal)
-                    putExtra("CITA_DOMICILIO", cita.domicilio)
-                    putExtra("CITA_SINTOMAS", cita.sintomas)
-                }
-                startActivity(intent)
-            },
-            onItemLongClick = { cita ->
-                AlertDialog.Builder(this)
-                    .setTitle("Eliminar cita")
-                    .setMessage("¿Eliminar la cita de ${cita.cliente}?")
-                    .setPositiveButton("Eliminar") { _, _ ->
-                        db.collection("citas").document(cita.id).delete()
-                            .addOnSuccessListener {
-                                Toast.makeText(this, "Cita eliminada", Toast.LENGTH_SHORT).show()
-                            }
-                            .addOnFailureListener {
-                                Toast.makeText(this, "Error al eliminar cita", Toast.LENGTH_SHORT).show()
-                            }
-                    }
-                    .setNegativeButton("Cancelar", null)
-                    .show()
-            }
+            onItemClick = { cita -> abrirEditarCita(cita) },
+            onItemLongClick = { cita -> confirmarEliminarCita(cita) }
         )
 
         binding.rvCitas.layoutManager = LinearLayoutManager(this)
@@ -59,7 +36,65 @@ class CitasActivity : AppCompatActivity() {
             startActivity(Intent(this, FormCitaActivity::class.java))
         }
 
+        binding.btnEditarCita.setOnClickListener {
+            if (listaCitas.isEmpty()) {
+                Toast.makeText(this, "No hay citas para editar", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            val nombres = listaCitas.map { "${it.cliente} - ${it.animal}" }.toTypedArray()
+            AlertDialog.Builder(this)
+                .setTitle("Selecciona una cita para editar")
+                .setItems(nombres) { _, which ->
+                    abrirEditarCita(listaCitas[which])
+                }
+                .setNegativeButton("Cancelar", null)
+                .show()
+        }
+
+        binding.btnEliminarCita.setOnClickListener {
+            if (listaCitas.isEmpty()) {
+                Toast.makeText(this, "No hay citas para eliminar", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            val nombres = listaCitas.map { "${it.cliente} - ${it.animal}" }.toTypedArray()
+            AlertDialog.Builder(this)
+                .setTitle("Selecciona una cita para eliminar")
+                .setItems(nombres) { _, which ->
+                    confirmarEliminarCita(listaCitas[which])
+                }
+                .setNegativeButton("Cancelar", null)
+                .show()
+        }
+
         escucharCitas()
+    }
+
+    private fun abrirEditarCita(cita: Cita) {
+        val intent = Intent(this, FormCitaActivity::class.java).apply {
+            putExtra("CITA_ID", cita.id)
+            putExtra("CITA_CLIENTE", cita.cliente)
+            putExtra("CITA_ANIMAL", cita.animal)
+            putExtra("CITA_DOMICILIO", cita.domicilio)
+            putExtra("CITA_SINTOMAS", cita.sintomas)
+        }
+        startActivity(intent)
+    }
+
+    private fun confirmarEliminarCita(cita: Cita) {
+        AlertDialog.Builder(this)
+            .setTitle("Eliminar cita")
+            .setMessage("¿Eliminar la cita de ${cita.cliente}?")
+            .setPositiveButton("Eliminar") { _, _ ->
+                db.collection("citas").document(cita.id).delete()
+                    .addOnSuccessListener {
+                        Toast.makeText(this, "Cita eliminada", Toast.LENGTH_SHORT).show()
+                    }
+                    .addOnFailureListener {
+                        Toast.makeText(this, "Error al eliminar cita", Toast.LENGTH_SHORT).show()
+                    }
+            }
+            .setNegativeButton("Cancelar", null)
+            .show()
     }
 
     private fun escucharCitas() {
@@ -71,6 +106,7 @@ class CitasActivity : AppCompatActivity() {
             val lista = snapshot?.documents?.mapNotNull { doc ->
                 doc.toObject(Cita::class.java)?.apply { id = doc.id }
             }.orEmpty()
+            listaCitas = lista
             citaAdapter.actualizarLista(lista)
         }
     }
